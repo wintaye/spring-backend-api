@@ -36,7 +36,23 @@ public class EmployeeController {
     //localhost:8080/api/employees/#
 
     @GetMapping("/{id}")
-    public ResponseEntity<Employee> getEmployeeById (@PathVariable("id") Long employeeId){
+    public ResponseEntity<Employee> getEmployeeById (@PathVariable("id") long employeeId){
         return new ResponseEntity<Employee>(employeeService.getEmployeeById(employeeId), HttpStatus.OK);
+    }
+
+    //build update employee REST API
+    //localhost:8080/api/employees/#
+    @PutMapping("/{id}")
+    public ResponseEntity<Employee> updateEmployee (@PathVariable("id") long employeeId, @RequestBody Employee employee){
+        return  new ResponseEntity<Employee>(employeeService.updateEmployee(employee, employeeId), HttpStatus.OK);
+    }
+
+    //build delete employee REST API
+    //localhost:8080/api/employees/#
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteEmployee(@PathVariable("id") long id){
+        employeeService.deleteEmployee(id);
+        //notification of successful deletion
+        return new ResponseEntity<String>("Employee deleted successfully", HttpStatus.OK);
     }
 }
